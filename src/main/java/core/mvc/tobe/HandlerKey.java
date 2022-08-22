@@ -1,6 +1,9 @@
 package core.mvc.tobe;
 
 import core.annotation.web.RequestMethod;
+import org.springframework.http.server.PathContainer;
+import org.springframework.web.util.pattern.PathPattern;
+import org.springframework.web.util.pattern.PathPatternParser;
 
 public class HandlerKey {
     private final String url;
@@ -9,6 +12,11 @@ public class HandlerKey {
     public HandlerKey(String url, RequestMethod requestMethod) {
         this.url = url;
         this.requestMethod = requestMethod;
+    }
+
+    public boolean matchedHandler(String requestURI) {
+        UriPathPattern uriPathPattern = new UriPathPattern(url);
+        return uriPathPattern.matched(requestURI);
     }
 
     @Override
